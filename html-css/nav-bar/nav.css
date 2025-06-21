@@ -1,0 +1,94 @@
+body {
+    margin: 0;
+  }
+  
+  .navbar {
+    display:flex;
+    height:3rem;
+    position: fixed;
+    z-index:1000;
+    background: linear-gradient(to bottom, rgba(225,225,225, 60%), rgba(155,155,155,30%));
+    backdrop-filter: blur(16px);
+    width: 100%;
+  }
+  .logo {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+  }
+  
+  .logo-e {
+    font-family: exo, sans-serif;
+    font-weight: bold;
+    font-size: 32px;
+  }
+  
+  .logo-k {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    color: whitesmoke;
+    text-shadow: 1px 1px 1px black;
+    font-weight: 200;
+    font-size: 32px;
+  }
+  
+  nav ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    align-items: center;
+    width:100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  
+  }
+  
+  nav li {
+    flex: 1 1 auto;
+    height:100%;
+    text-align: center;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav li:hover {
+     height: 100%;
+  /*   background-color: rgba(4, 217, 255, 40%);
+    backdrop-filter: hue-rotate(60deg) blur(18px);
+       box-shadow: inset 0px 0px 2px 40px #b0afae;*/
+     background: linear-gradient(to bottom, rgba(225,225,225, 60%), rgba(155,155,155,30%));
+     backdrop-filter: hue-rotate(60deg) blur(18px);
+     font-weight: bold;
+  }
+  
+  nav a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    line-height: inherit;
+    text-decoration: none;
+    font-family: Helvetica;
+    color: black;
+    width: 100%;
+    height: 100%;
+  }
+  nav a:active {
+    color: whitesmoke;
+  }
+  
+  
+  
+  
+  /*--media query stuff here--*/
+  
+  @media (max-width: 600px) {
+    .navbar {
+      height: auto;
+    }
+    nav ul {
+    flex-direction: column;
+    }
+}
+  
