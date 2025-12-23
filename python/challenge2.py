@@ -1,3 +1,5 @@
+#!/usr/bin/env python3 
+
 # Python Intermediate Challenge: Hangman Game
 #
 # Objective: Build a simple Hangman game where the computer picks a random word, and the player guesses letters
@@ -86,50 +88,56 @@ def play_game():
     secret = random.choice(WORD_BANK)
     current_guess = 0
     display_list = ['_'] * len(secret)
-    
+    guessed_letters = set()
+    wrong_guesses = set()
+
     while True:
         display_string = " ".join(display_list)
-        if display_string.replace(" ","") == secret:
+        if '_' not in display_list:
+            print(f"Congrats! you won, the word was {secret}")
             break
         print(HANGMAN_PICS[current_guess])
         print(display_string)
-        
-        guessed_letters = set()
+        if wrong_guesses:
+            print(f"Wrong guesses: {wrong_guesses}")
         guess = input('guess a letter: ').strip().lower()
-        try:
-            # some checks to validate guesses
-            if len(guess) > 1:
-                print('just guess one letter')
-            if guess.isnumeric():
-                print('That is a number, not a letter')
-            if guess in guessed_letters:
-                print(f'{guess} was already guessed, try again')
-            # if the guess is valid, we check if the letter is present
-            else:
-                guessed_letters.add(guess)
-                # string manipulation and state management
-                if guess in secret:
-                    print('Good guess')
-                    print(secret.find(guess))
-                    for i in range(len(secret)):
-                        if secret[i] == guess:
-                            display_list[i] = guess
-                # handling a wrong guess, and game over
-                else:
-                    current_guess += 1
-                    if current_guess == MAX_GUESSES:
-                        print(HANGMAN_PICS[current_guess])
-                        print("Out of guesses, Game Over")
-                        break
-        except:
-            TypeError
-            print('I didn\'t understand that')
+
+        # some checks to validate guesses
+        if len(guess) > 1:
+            print('just guess one letter, try again')
+            continue
+        if not guess.isalpha():
+            print('That isn\'t a letter, try again')
+            continue
+        if guess in guessed_letters:
+            print(f'{guess} was already guessed, try again')
+            continue
+
+        # if the guess is valid, we check if the letter is present
+        guessed_letters.add(guess)
+        # string manipulation and state management
+        if guess in secret:
+            print('Good guess')
+            print(secret.find(guess))
+            for i in range(len(secret)):
+                if secret[i] == guess:
+                    display_list[i] = guess
+        # handling a wrong guess, and game over logic
+        else:
+            current_guess += 1
+            wrong_guesses.add(guess)
+            print(f"Wrong! {MAX_GUESSES - current_guess} guesses left.")
+            if current_guess == MAX_GUESSES:
+                print(HANGMAN_PICS[current_guess])
+                print("Out of guesses, Game Over")
+                print(f"the word was {secret}")
+                break
 
 # play and replay implementation
 while True:
     play_game()
     play_again = input('play again y/n: ').strip().lower()
     if play_again == 'y':
-        play_again()
+        play_game()
     else:
         break
